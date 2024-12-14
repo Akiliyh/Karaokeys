@@ -22,6 +22,8 @@ window.addEventListener("DOMContentLoaded", () => {
             const deezerData = await getDeezerSongData(artistName, song);
             const lyricsUrl = await getLyricsLrclib(song, artistName, deezerData.album, deezerData.duration);
             const albumCover = deezerData.albumCover;
+            const duration = deezerData.duration;
+            const difficulty = getDifficulty(lyricsUrl.wordCount, deezerData.duration);
 
             console.log(results);
 
@@ -31,6 +33,8 @@ window.addEventListener("DOMContentLoaded", () => {
                 url: videoId ? `https://www.youtube.com/watch?v=${videoId}` : null,  // Si YouTube échoue, pas d'URL vidéo
                 lyrics: lyricsUrl,
                 albumCover: albumCover,
+                duration: duration,
+                difficulty: difficulty
             });
         }
 
@@ -78,7 +82,8 @@ window.addEventListener("DOMContentLoaded", () => {
             if (data) {
                 const lyricsData = {
                     plainLyrics: data.plainLyrics || "No plain lyrics found.",
-                    syncedLyrics: data.syncedLyrics || "No synced lyrics found."
+                    syncedLyrics: data.syncedLyrics || "No synced lyrics found.",
+                    wordCount: data.plainLyrics === "No plain lyrics found" ? 0 : data.plainLyrics.split(/\s+/).filter(word => word.trim().length > 0).length,
                 };
 
                 return lyricsData;
@@ -86,15 +91,26 @@ window.addEventListener("DOMContentLoaded", () => {
 
             return {
                 plainLyrics: "No plain lyrics found.",
-                syncedLyrics: "No synced lyrics found."
+                syncedLyrics: "No synced lyrics found.",
+                wordCount: "No words found"
             };
         } catch (error) {
             console.error("Erreur lors de la récupération des paroles :", error);
             return {
                 plainLyrics: "No plain lyrics found.",
-                syncedLyrics: "No synced lyrics found."
+                syncedLyrics: "No synced lyrics found.",
+                wordCount: "No words found"
             };
         }
+    }
+
+    function getDifficulty(wordCount, duration) {
+        let difficulty = Math.round((wordCount / duration) * 2); // word per second + arbitrary factor for better diversity
+        console.log(difficulty);
+        console.log( (wordCount / duration) * 2);
+        if (difficulty < 1) difficulty = 1; // clamping
+        if (difficulty > 5) difficulty = 5;
+        return difficulty;
     }
 
     function renderSongDetails(songData) {
@@ -119,6 +135,18 @@ window.addEventListener("DOMContentLoaded", () => {
         const lyricSyncedSpan = document.createElement("span");
         lyricSyncedSpan.textContent = `Synced Lyrics: ${songData.lyrics.syncedLyrics}`;
         detailsContainer.appendChild(lyricSyncedSpan);
+
+        const lyricWordsSpan = document.createElement("span");
+        lyricWordsSpan.textContent = `Words: ${songData.lyrics.wordCount}`;
+        detailsContainer.appendChild(lyricWordsSpan);
+
+        const songDurationSpan = document.createElement("span");
+        songDurationSpan.textContent = `Duration: ${songData.duration}`;
+        detailsContainer.appendChild(songDurationSpan);
+
+        const songDifficultySpan = document.createElement("span");
+        songDifficultySpan.textContent = `Difficulty: ${songData.difficulty}`;
+        detailsContainer.appendChild(songDifficultySpan);
 
         const playerDiv = document.createElement("div");
         playerDiv.id = "player";
@@ -153,17 +181,31 @@ window.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(detailsContainer);
     }
 
-    const artists = [
-        { artistName: "Stromae", song: "Papaoutai" },
-        { artistName: "Stromae", song: "Formidable" },
-        { artistName: "Gims", song: "Où aller" },
-    ];
+    function fetchSongs() { // Fetch the json songs file
+        return fetch('./data/songs.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("That ain't working man");
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
 
-    getSongsData(artists).then((songDataArray) => {
-        songDataArray.forEach((songData, index) => {
-            const button = document.getElementById(`song${index}`);
-            button.textContent = `${songData.artistName} - ${songData.song}`;
-            button.addEventListener("click", () => renderSongDetails(songData));
-        });
-    });
+    const init = async () => {
+        const artists = await fetchSongs();
+        if (artists) {
+            getSongsData(artists).then((songDataArray) => {
+                songDataArray.forEach((songData, index) => {
+                    const button = document.getElementById(`song${index}`);
+                    button.textContent = `${songData.artistName} - ${songData.song}`;
+                    button.addEventListener("click", () => renderSongDetails(songData));
+                });
+            });
+        }
+    };
+    
+    init();
 });
