@@ -1,0 +1,202 @@
+*{
+    list-style-type: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --green1: #E0FFA7;
+    --green2: #C4F209;
+    --grayBackground: #EFEFEF;
+    --grayElement : #F7FFF5;
+    --darkGray : #616161;
+    --black: #252222;
+    --white: #fff;
+}
+
+@font-face {
+    font-family: "Nohemi";
+    src: url("../fonts/nohemi-variable.ttf");
+}
+
+.body{
+    width: 100%;
+    max-width: 1920px;
+    height: fit-content;
+    background-color: var(--grayBackground);
+    font-family: "Nohemi";
+    font-weight: 400;
+}
+
+header > .nav{
+    width: 100%;
+    height: 76px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.nav .wrapperNavbarElement {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.nav .element svg{
+    width: 14px;
+    height: 14px;
+}
+
+.nav .element a{
+    color: var(--black);
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    column-gap: 7px;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+.mainChooseSong{
+    height: 100%;
+}
+
+.title{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.sectionLinear{
+    border-radius: 10px;
+    background: var(--green1);
+    background: linear-gradient(180deg, var(--green1) 0%, var(--grayElement) 100%);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.songs{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.songContainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    background-color: var(--grayBackground);
+    column-gap: 10px;
+}
+
+.leftPart{
+    display: flex;
+    column-gap: 10px;
+}
+
+.songImage{
+    width: 70px;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.leftPart .infos{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.infos .headerInfos{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+}
+
+.infos .headerInfos .songTitle{
+    font-size: 14px;
+}
+
+.infos .headerInfos .songArtist{
+    font-size: 13px;
+    color: var(--darkGray);
+}
+
+.infos .statsInfos{
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.infos .statsInfos .difficulty{
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.infos .statsInfos .songBpmText{
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.difficulty .stars{
+    display: flex;
+    column-gap: 2px;
+}
+
+.difficulty .stars svg{
+    height: 12px;
+    width: 12px;
+}
+
+.difficulty span{
+    margin-top: 2px;
+    font-size: 13px;
+}
+
+.rightPart{
+    display: flex;
+    row-gap: 10px;
+    flex-direction: column;
+}
+
+.rightPart .button{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.rightPart .button:hover{
+    background-color: var(--green2);
+}
+
+.favoryButton{
+    background-color: var(--white);
+}
+
+.listenButton{
+    background-color: var(--black);
+}
+
+.listenButton:hover svg{
+    stroke: var(--black);
+}
