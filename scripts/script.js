@@ -5,20 +5,6 @@ window.addEventListener("DOMContentLoaded", () => {
         const results = [];
 
         for (const { artistName, song } of artists) {
-            let videoId = null;
-            try {
-                const youtubeResponse = await fetch(
-                    `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(artistName)}%20${encodeURIComponent(song)}&key=${API_KEY}&type=video&maxResults=1`
-                );
-                const youtubeData = await youtubeResponse.json();
-
-                if (youtubeData.items && youtubeData.items.length > 0) {
-                    videoId = youtubeData.items[0].id.videoId;
-                }
-            } catch (error) {
-                console.error("Erreur API YouTube :", error);
-            }
-
             const deezerData = await getDeezerSongData(artistName, song);
             const lyricsUrl = await getLyricsLrclib(song, artistName, deezerData.album, deezerData.duration);
             const albumCover = deezerData.albumCover;
@@ -27,16 +13,35 @@ window.addEventListener("DOMContentLoaded", () => {
 
             console.log(results);
 
+            let songLinkData;
+
+
+            try {
+                console.log("deezer", deezerData)
+
+                const songLinkResponse = await fetch(
+                    `https://api.song.link/v1-alpha.1/links?url=deezer.com/track/${deezerData.id}`
+                );
+                songLinkData = await songLinkResponse.json();
+
+                console.log("songLink", songLinkData)
+
+            } catch (error) {
+                console.error("Erreur API YouTube :", error);
+            }
+
             results.push({
                 artistName,
                 song,
-                url: videoId ? `https://www.youtube.com/watch?v=${videoId}` : null,  // Si YouTube échoue, pas d'URL vidéo
+                url: songLinkData.linksByPlatform.youtube.url, 
                 lyrics: lyricsUrl,
                 albumCover: albumCover,
                 duration: duration,
                 difficulty: difficulty
             });
         }
+
+        console.log(results)
 
         return results;
     }
@@ -60,7 +65,8 @@ window.addEventListener("DOMContentLoaded", () => {
             return {
                 album: songData.album.title,
                 duration: songData.duration,
-                albumCover: songData.album.cover_medium
+                albumCover: songData.album.cover_medium,
+                id : songData.id
             };
         }
 
