@@ -1,39 +1,111 @@
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Kara'</title>
-		<script src="./scripts/script.js"></script>
-	</head>
-	<body>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Kara'</title>
+	<script src="./scripts/script.js"></script>
+	<link href="/styles/style.css" rel="stylesheet">
+</head>
+
+<body class="body">
+	<div class="wrapperGlobal">
 		<header>
-			<nav>
-				<ul>
-					<li><a href="./index.html"> Kara' </a></li>
-					<li>
-						<img href="" alt="heart" />
-						<a href="./pages/favorites.html">My favorites</a>
+			<nav class="nav">
+				<ul class="wrapperNavbarElement">
+					<li class="element"><a href="./index.html"> Kara' </a></li>
+					<li class="element">
+						<a href="./pages/favorites.html"> <img src="./images/svg/heartStroke.svg" alt="heart icon" /> My
+							favorites</a>
 					</li>
 				</ul>
 			</nav>
 		</header>
-		<main>
-			<h1>Choose the song you'd like to sing</h1>
-			<div>
-				<p>Difficulty</p>
-
-				<!-- amount of stars ? -->
-				<img href="" alt="star" />
-
-				<button><img href="" alt="Add to favorites" /></button>
-				<button><img href="" alt="Listen to song" /></button>
-
-				<!-- play song ? -->
+		<main class="main mainChooseSong">
+			<section class="sectionLinear sectionChoiceSong">
+				<h1 class="title">Choose the song you'd like to sing along</h1>
+				<div class="songs">
+					<div class="songContainer song0">
+						<div class="leftPart">
+							<img class="songImage" src="..." />
+							<div class="infos">
+								<div class="headerInfos">
+									<span class="songTitle">...</span>
+									<span class="songArtist">...</span>
+								</div>
+								<div class="statsInfos">
+									<div class="difficulty">
+										<span>Difficulty</span>
+										<div class="stars">
+											<img src="./images/svg/star.svg" alt="star icon" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rightPart">
+							<button class="button favoryButton notLiked" onclick=""><img
+									src="./images/svg/heartStroke.svg" alt="Add to favorites" /></button>
+							<button class="button listenButton" onclick=""><img src="./images/svg/player.svg"
+									alt="Listen to song" /></button>
+						</div>
+					</div>
+					<div class="songContainer song1">
+						<div class="leftPart">
+							<img class="songImage" src="..." />
+							<div class="infos">
+								<div class="headerInfos">
+									<span class="songTitle">...</span>
+									<span class="songArtist">...</span>
+								</div>
+								<div class="statsInfos">
+									<div class="difficulty">
+										<span>Difficulty</span>
+										<div class="stars">
+											<img src="./images/svg/star.svg" alt="star icon" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rightPart">
+							<button class="button favoryButton notLiked" onclick=""><img
+									src="./images/svg/heartStroke.svg" alt="Add to favorites" /></button>
+							<button class="button listenButton" onclick=""><img src="./images/svg/player.svg"
+									alt="Listen to song" /></button>
+						</div>
+					</div>
+					<div class="songContainer song2">
+						<div class="leftPart">
+							<img class="songImage" src="..." />
+							<div class="infos">
+								<div class="headerInfos">
+									<span class="songTitle">...</span>
+									<span class="songArtist">...</span>
+								</div>
+								<div class="statsInfos">
+									<div class="difficulty">
+										<span>Difficulty</span>
+										<div class="stars">
+											<img src="./images/svg/star.svg" alt="star icon" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rightPart">
+							<button class="button favoryButton notLiked" onclick=""><img
+									src="./images/svg/heartStroke.svg" alt="Add to favorites" /></button>
+							<button class="button listenButton" onclick=""><img src="./images/svg/player.svg"
+									alt="Listen to song" /></button>
+						</div>
+					</div>
+				</div>
 				<button id="song0"></button>
-			</div>
-
-			<button id="song1"></button>
-			<button id="song2"></button>
+				<button id="song1"></button>
+				<button id="song2"></button>
 		</main>
-	</body>
+	</div>
+</body>
+
 </html>
