@@ -10,7 +10,6 @@ window.addEventListener("DOMContentLoaded", () => {
             const albumCover = deezerData.albumCover;
             const duration = deezerData.duration;
             const difficulty = getDifficulty(lyricsUrl.wordCount, deezerData.duration);
-
             console.log(results);
 
             let songLinkData;
