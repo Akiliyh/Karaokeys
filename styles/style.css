@@ -20,13 +20,22 @@
     src: url("../fonts/nohemi-variable.ttf");
 }
 
+
 .body{
     width: 100%;
-    max-width: 1920px;
     height: fit-content;
     background-color: var(--grayBackground);
     font-family: "Nohemi";
     font-weight: 400;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.wrapperGlobal{
+    width: 100%;
+    max-width: 1920px;
+    height: 100%;
 }
 
 header > .nav{
@@ -60,11 +69,13 @@ header > .nav{
 .main{
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    padding: 0 20px 20px 20px;
+    box-sizing: border-box;
 }
 
-.mainChooseSong{
+.mainChooseSong, .mainFavoritesSong{
     height: 100%;
+    max-height: calc(100% - 76px)
 }
 
 .title{
@@ -82,11 +93,13 @@ header > .nav{
     row-gap: 50px;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    overflow: auto;
 }
 
 .songs{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 300px;
     column-gap: 20px;
     row-gap: 20px;
 }
@@ -97,7 +110,7 @@ header > .nav{
     padding: 10px;
     border-radius: 10px;
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
     box-sizing: border-box;
     background-color: var(--grayBackground);
     column-gap: 10px;
@@ -199,4 +212,16 @@ header > .nav{
 
 .listenButton:hover svg{
     stroke: var(--black);
+}
+
+@media screen and (min-width: 760px) {
+    .songs{
+        grid-template-columns: repeat(2,300px);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .songs{
+        grid-template-columns: repeat(3,300px);
+    }
 }
