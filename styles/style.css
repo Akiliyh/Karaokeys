@@ -142,11 +142,13 @@ header > .nav{
 
 .infos .headerInfos .songTitle{
     font-size: 14px;
+    font-weight: 500;
 }
 
 .infos .headerInfos .songArtist{
-    font-size: 13px;
+    font-size: 12px;
     color: var(--darkGray);
+    font-weight: 500;
 }
 
 .infos .statsInfos{
@@ -169,12 +171,12 @@ header > .nav{
 
 .difficulty .stars{
     display: flex;
-    column-gap: 2px;
+    column-gap: 1px;
 }
 
-.difficulty .stars svg{
-    height: 12px;
-    width: 12px;
+.difficulty .stars img{
+    height: 13px;
+    width: 13px;
 }
 
 .difficulty span{
@@ -188,7 +190,7 @@ header > .nav{
     flex-direction: column;
 }
 
-.rightPart .button{
+.favoryButton, .listenButton{
     width: 40px;
     height: 40px;
     border-radius: 5px;
@@ -198,7 +200,7 @@ header > .nav{
     transition: 0.2s ease-in-out;
 }
 
-.rightPart .button:hover{
+.listenButton:hover, .favoryButton:hover{
     background-color: var(--green2);
 }
 
