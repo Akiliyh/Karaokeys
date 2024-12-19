@@ -1,5 +1,4 @@
 window.addEventListener("DOMContentLoaded", () => {
-    const API_KEY = "AIzaSyCCobxwZvw-xgs62T40c9Hy_ygcBMF-VoA";
 
     async function getSongsData(artists) {
         const results = [];
@@ -30,6 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }
 
             results.push({
+                idKara : generateRandomId(6),
                 artistName,
                 song,
                 url: songLinkData.linksByPlatform.youtube.url, 
@@ -43,6 +43,16 @@ window.addEventListener("DOMContentLoaded", () => {
         console.log(results)
 
         return results;
+    }
+
+    function generateRandomId(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            result += characters[randomIndex];
+        }
+        return result;
     }
 
     async function getDeezerSongData(artist, song) {
@@ -187,7 +197,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function fetchSongs() { // Fetch the json songs file
-        return fetch('./data/songs.json')
+        return fetch('../../data/songs.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error("That ain't working man");

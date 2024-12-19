@@ -3,13 +3,16 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="../../scripts/script.js"></script>
+		<script src="../../scripts/song.js"></script>
+		<link href="/styles/song.css" rel="stylesheet">
 		<title>Play</title>
 	</head>
 	<body>
 		<header>
 			<nav>
 				<ul>
-					<li><a href="../index.html"> Kara' </a></li>
+					<li><a href="../../index.html"> Kara' </a></li>
 					<li>
 						<img href="" alt="heart" />
 						<a href="./pages/favorites.html">My favorites</a>
@@ -19,23 +22,41 @@
 		</header>
 		<main>
 			<div class="side-actions">
-				<a href="../index.html"> <img href="" alt="Return home" /> </a>
+				<a href="../../index.html"> <img href="" alt="Return home" /> </a>
 				<button><img href="" alt="Add to favorites" /></button>
-				<button><img href="" alt="? (les deux traits)" /></button>
+				<button><img href="" alt="Pause" /></button>
 				<button><img href="" alt="? (logo video)" /></button>
 			</div>
-			<div>
+			<div class="lyrics">
 				<!-- Lyrics ? -->
 			</div>
-			<div>
+			<div class="youtube-video">
 				<!-- Youtube Video ? -->
 			</div>
 		</main>
 		<footer>
 			<!-- album cover, artist, song, duration ? -->
+			<img src="" alt="Pochette d'album" class="album">
+			<span class="artist"></span>
+			<span class="song"></span>
+			<div class="timeline">
+				<img href="" alt="Timeline" />
+				<input type="time" name="playback" id="playback" readonly value="00:00">
+				<input
+					type="range"
+					id="timeline"
+					name="timeline"
+					min="0"
+					max="100"
+					disabled
+				/>
+				<label for="timeline">Timeline</label>
+				<input type="time" name="duration" id="duration" readonly value="00:00">
+			</div>
+			<button class="play"><img href="" alt="Play" /></button>
+			<button class="pause"><img href="" alt="Pause" /></button>
 			<button><img href="" alt="Add to favorites" /></button>
-			<button><img href="" alt="Pause" /></button>
-			<button><img href="" alt="Repeat" /></button>
+			<button class="restart"><img href="" alt="Repeat" /></button>
 
 			<div>
 				<img href="" alt="Set volume" />
