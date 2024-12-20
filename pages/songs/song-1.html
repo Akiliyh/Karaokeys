@@ -5,70 +5,127 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script type="module" src="../../scripts/script.js"></script>
 		<script type="module" src="../../scripts/song.js"></script>
-		<link href="/styles/song.css" rel="stylesheet">
+		<link href="../../styles/style.css" rel="stylesheet" />
+		<link href="../../styles/song.css" rel="stylesheet" />
 		<title>Play</title>
 	</head>
-	<body>
-		<header>
-			<nav>
-				<ul>
-					<li><a href="../../index.html"> Kara' </a></li>
-					<li>
-						<img href="" alt="heart" />
-						<a href="./pages/favorites.html">My favorites</a>
-					</li>
-				</ul>
-			</nav>
-		</header>
-		<main>
-			<div class="side-actions">
-				<a href="../../index.html"> <img href="" alt="Return home" /> </a>
-				<button><img href="" alt="Add to favorites" /></button>
-				<button><img href="" alt="Pause" /></button>
-				<button><img href="" alt="? (logo video)" /></button>
-			</div>
-			<div class="lyrics">
-				<!-- Lyrics ? -->
-			</div>
-			<div class="youtube-video">
-				<!-- Youtube Video ? -->
-			</div>
-		</main>
-		<footer>
-			<!-- album cover, artist, song, duration ? -->
-			<img src="" alt="Pochette d'album" class="album">
-			<span class="artist"></span>
-			<span class="song"></span>
-			<div class="timeline">
-				<img href="" alt="Timeline" />
-				<input type="time" name="playback" id="playback" readonly value="00:00">
-				<input
-					type="range"
-					id="timeline"
-					name="timeline"
-					min="0"
-					max="100"
-					disabled
-				/>
-				<label for="timeline">Timeline</label>
-				<input type="time" name="duration" id="duration" readonly value="00:00">
-			</div>
-			<button class="play"><img href="" alt="Play" /></button>
-			<button class="pause"><img href="" alt="Pause" /></button>
-			<button><img href="" alt="Add to favorites" /></button>
-			<button class="restart"><img href="" alt="Repeat" /></button>
 
-			<div>
-				<img href="" alt="Set volume" />
-				<input
-					type="range"
-					id="volume"
-					name="volume"
-					min="0"
-					max="100"
-				/>
-				<label for="volume">Volume</label>
-			</div>
-		</footer>
+	<body class="body">
+		<div class="wrapperGlobal">
+			<header>
+				<nav class="nav">
+					<ul class="wrapperNavbarElement">
+						<li class="element">
+							<a href="../../index.html"> Kara' </a>
+						</li>
+						<li class="element">
+							<a href="../favorites.html">
+								<img
+									src="../../images/svg/heartStroke.svg"
+									alt="heart icon"
+								/>
+								My favorites</a
+							>
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<main class="main">
+				<section class="sectionLinear">
+					<div class="side-actions">
+						<a href="../../index.html">
+							<img
+								src="../../images/svg/return.svg"
+								alt="Return home"
+							/>
+						</a>
+						<button>
+							<img
+								src="../../images/svg/heartStroke.svg"
+								alt="Add to favorites"
+							/>
+						</button>
+						<button>
+							<img src="../../images/svg/3.svg" alt="?" />
+						</button>
+						<button>
+							<img src="../../images/svg/4.svg" alt="?" />
+						</button>
+					</div>
+					<div class="lyrics">
+						<!-- Lyrics-->
+					</div>
+					<div class="youtube-video">
+						<!-- Youtube Video -->
+					</div>
+				</section>
+			</main>
+			<footer>
+				<!-- album cover, artist, song, duration ? -->
+				<img src="" alt="song cover" class="album" />
+				<span class="artist"></span>
+				<span class="song"></span>
+				<div class="playback-controls">
+					<div class="timeline">
+						<img src="" alt="Timeline" />
+						<input
+							type="time"
+							name="playback"
+							id="playback"
+							readonly
+							value="00:00"
+						/>
+						<input
+							type="range"
+							id="timeline"
+							name="timeline"
+							min="0"
+							max="100"
+							disabled
+						/>
+						<label for="timeline">Timeline</label>
+						<input
+							type="time"
+							name="duration"
+							id="duration"
+							readonly
+							value="00:00"
+						/>
+					</div>
+					<div class="controls">
+						<span class="duration"></span>
+						<button class="play">
+							<img src="../../images/svg/player.svg" alt="Play" />
+						</button>
+						<button class="pause">
+							<img src="../../images/svg/pause.svg" alt="Pause" />
+						</button>
+						<button class="favorites">
+							<img
+								src="../../images/svg/heartStroke.svg"
+								alt="Add to favorites"
+							/>
+						</button>
+						<button class="restart">
+							<img
+								src="../../images/svg/restart.svg"
+								alt="Restart"
+							/>
+						</button>
+					</div>
+				</div>
+				<div>
+					<img src="../../images/svg/volume.svg" alt="Set volume" />
+					<input
+						type="range"
+						id="volume"
+						name="volume"
+						min="0"
+						max="100"
+					/>
+					<label for="volume">Volume</label>
+				</div>
+			</footer>
+		</div>
 	</body>
 </html>
