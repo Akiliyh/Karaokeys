@@ -4,6 +4,7 @@ import { resultsManager } from "./resultsManager.js";
 const populateSongCard = (results) => {
     const songsContainer = document.querySelector(".songs");
     songsContainer.innerHTML = "";
+    let count = 1;
 
     results.forEach(song => {
         const songDiv = document.createElement("div");
@@ -33,11 +34,13 @@ const populateSongCard = (results) => {
                 <button class="button favoryButton notLiked" data-id="${song.idKara}">
                     <img src="./images/svg/heartStroke.svg" alt="Add to favorites" />
                 </button>
-                <button class="button listenButton">
+                <a href="/pages/songs/song-${count}.html" class="button listenButton">
                     <img src="./images/svg/player.svg" alt="Listen to song" />
-                </button>
+                </a>
             </div>
         `;
+
+        count+= 1;
 
         songsContainer.appendChild(songDiv);
 
