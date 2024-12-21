@@ -1,7 +1,6 @@
 import { initPopulateSongCard } from "./populateData.js";
 import { resultsManager } from "./resultsManager.js";
 
-window.addEventListener("DOMContentLoaded", async () => {
     const API_KEY = "AIzaSyCCobxwZvw-xgs62T40c9Hy_ygcBMF-VoA";
 
     async function getSongsData(artists) {
@@ -118,9 +117,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         return difficulty;
     }
 
-    const init = async () => {
+    export const init = async () => {
         try {
-            const artists = await fetch('./data/songs.json').then(res => res.json());
+            const artists = await fetch('/data/songs.json').then(res => res.json());
             if (!artists || artists.length === 0) {
                 console.error("Aucune donnée d'artiste trouvée.");
                 return;
@@ -144,4 +143,3 @@ window.addEventListener("DOMContentLoaded", async () => {
     };
 
     await init();
-});

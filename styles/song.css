@@ -1,0 +1,113 @@
+.lyrics span.active {
+    color: blue;
+    font-weight: bold;
+}
+
+.sectionLinear {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.side-actions {
+    align-self: flex-start;
+    display : flex;
+    flex-direction: column;
+}
+
+.side-actions a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-actions > button, .side-actions>a {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #252222;
+    outline: none;
+    border : 0;
+    margin : 0 0 20px;
+    cursor: pointer;
+}
+
+.side-actions>button:hover, .side-actions>a:hover {
+    background-color: var(--green2);
+}
+
+.lyrics {
+    width: 80%;
+    height: 100%;
+    flex-basis: 60%;
+}
+
+.youtube-video {    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: 100%;
+    width : 30%;
+    flex-basis: 30%;
+}
+
+label {
+    display: none;
+}
+
+.album{
+    width: 50px;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.playback-controls {
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.playback-controls .controls{
+    order : 1;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.controls > button {
+    cursor: pointer;
+    outline:none;
+    border: none;
+    margin : 5px;
+}
+
+.favorites {
+    order:1;
+}
+
+.play {
+    order:2;
+}
+
+.pause {
+    order:3;
+}
+
+.restart {
+    order: 4;
+}
+
+.playback-controls .timeline{
+    order : 2;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding: 0 20px;
+}

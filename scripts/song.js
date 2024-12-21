@@ -1,6 +1,109 @@
 import { resultsManager } from "./resultsManager.js";
+import { init } from "./script.js";
 
-window.addEventListener("DOMContentLoaded", () => {
+    function renderSongDetails(songData) {
+
+        const detailsContainer = document.createElement("div");
+        detailsContainer.id = "song-details";
+
+        const artistSpan = document.querySelector(".artist");
+        artistSpan.textContent = songData.artistName;
+
+        const songSpan = document.querySelector(".song");
+        songSpan.textContent = songData.song;
+
+        // const lyricSyncedSpan = document.createElement("span");
+        // lyricSyncedSpan.textContent = `Synced Lyrics: ${songData.lyrics.syncedLyrics}`;
+        // detailsContainer.appendChild(lyricSyncedSpan);
+
+        // const lyricWordsSpan = document.createElement("span");
+        // lyricWordsSpan.textContent = `Words: ${songData.lyrics.wordCount}`;
+        // detailsContainer.appendChild(lyricWordsSpan);
+
+        const songDifficultySpan = document.createElement("span");
+        songDifficultySpan.textContent = `Difficulty: ${songData.difficulty}`;
+        detailsContainer.appendChild(songDifficultySpan);
+
+        const YTPlayer = document.getElementById('player');
+
+        // Si une URL YouTube existe, on charge le lecteur
+        if (songData.url) {
+            var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      console.log(songData.url.split("v=")[1]);
+      window.onYouTubeIframeAPIReady = () => {
+        player = new YT.Player('player', {
+          height: '360',
+          width: '640',
+          videoId: songData.url.split("v=")[1],
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+        }
+
+        if (songData.albumCover) {
+            const albumCover = document.querySelector('.album');
+            albumCover.src = songData.albumCover;
+            albumCover.alt = `Album cover for ${songData.song}`;
+            albumCover.style.width = "200px";
+            albumCover.style.height = "200px";
+        }
+
+        document.body.appendChild(detailsContainer);
+    }
+
+    function renderLyricsWithTimecodes(lyrics) {
+        const syncedLyrics = lyrics.syncedLyrics; // Synced lyrics from the API
+    
+        const lines = syncedLyrics.split("\n"); // split lines
+    
+        const lyricsContainer = document.querySelector(".lyrics");
+
+        // We create a span for each synced lyric
+        lines.forEach(line => {
+            const match = line.match(/\[(\d{2}):(\d{2})\.(\d{2})\](.*)/); // Match time and text
+            if (match) {
+                const minute = parseInt(match[1]);
+                const second = parseInt(match[2]);
+                const hundredth = parseInt(match[3]);
+                const text = match[4].trim();
+    
+                // in order to compare we want everything in hundredths
+                const timeInHundredths = (minute * 60 * 100) + (second * 100) + hundredth;
+    
+                const span = document.createElement("span");
+                span.textContent = text;
+                span.dataset.time = timeInHundredths; // and we store the data in the data for comparison
+                lyricsContainer.appendChild(span);
+            }
+        });
+    
+    } 
 
     function highlightCurrentLyric(currentTime) {
         const lyricSpans = document.querySelectorAll(".lyrics span");
@@ -17,17 +120,22 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const init = async () => {
+    const initSongs = async () => {
+        init();
         const artists = resultsManager.getResults();
 
-        console.log(artists)
+        console.log(artists);
+        console.log(resultsManager.getResults());
 
         const pageName = window.location.pathname.split("/").pop(); // Get the current page name
         const match = pageName.match(/song-(\d+)\.html/); // Match 'song-<number>.html'
 
         const index = parseInt(match[1]) - 1;
         const singleArtist = artists[index];
-        initTimeline(singleArtist.lyrics.syncedLyrics)
+        console.log(singleArtist);
+        initTimeline(singleArtist);
+        renderLyricsWithTimecodes(singleArtist.lyrics);
+        renderSongDetails(singleArtist);
     };
 
     function initTimeline(songDataArray) {
@@ -136,5 +244,4 @@ window.addEventListener("DOMContentLoaded", () => {
         return { minute: isNaN(minute) ? 0 : minute, second: isNaN(second) ? 0 : second };
     }
 
-    init();
-});
+    await initSongs();

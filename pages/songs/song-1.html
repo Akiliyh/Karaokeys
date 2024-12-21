@@ -3,26 +3,28 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script type="module" src="../../scripts/script.js"></script>
+		<!-- <script type="module" src="../../scripts/script.js"></script> -->
 		<script type="module" src="../../scripts/song.js"></script>
-		<link href="/styles/song.css" rel="stylesheet">
+		<link href="../../styles/style.css" rel="stylesheet" />
+		<link href="../../styles/song.css" rel="stylesheet" />
 		<title>Play</title>
 	</head>
 	<body>
-		<header>
-			<nav>
-				<ul>
-					<li><a href="../../index.html"> Kara' </a></li>
-					<li>
-						<img href="" alt="heart" />
-						<a href="./pages/favorites.html">My favorites</a>
-					</li>
-				</ul>
-			</nav>
-		</header>
-		<main>
+		<div class="wrapperGlobal">
+			<header>
+				<nav class="nav">
+					<ul class="wrapperNavbarElement">
+						<li class="element"><a href="/index.html"> Kara' </a></li>
+						<li class="element">
+							<a href="/pages/favorites.html"> <img src="/images/svg/heartStroke.svg" alt="heart icon" /> My
+								favorites</a>
+						</li>
+					</ul>
+				</nav>
+			</header>
+		<main class="main">
 			<div class="side-actions">
-				<a href="../../index.html"> <img href="" alt="Return home" /> </a>
+				<a href="/index.html"> <img href="" alt="Return home" /> </a>
 				<button><img href="" alt="Add to favorites" /></button>
 				<button><img href="" alt="Pause" /></button>
 				<button><img href="" alt="? (logo video)" /></button>
@@ -32,6 +34,8 @@
 			</div>
 			<div class="youtube-video">
 				<!-- Youtube Video ? -->
+				<div id="player"></div>
+				<div id="youtube-iframe-api"></div>
 			</div>
 		</main>
 		<footer>
@@ -70,5 +74,6 @@
 				<label for="volume">Volume</label>
 			</div>
 		</footer>
+	</div>
 	</body>
 </html>

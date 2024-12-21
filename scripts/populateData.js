@@ -5,7 +5,7 @@ const populateSongCard = (results) => {
     const songsContainer = document.querySelector(".songs");
     songsContainer.innerHTML = "";
 
-    results.forEach(song => {
+    results.forEach((song, index) => {
         const songDiv = document.createElement("div");
         songDiv.className = `songContainer song${song.idKara}`;
 
@@ -33,9 +33,11 @@ const populateSongCard = (results) => {
                 <button class="button favoryButton notLiked" data-id="${song.idKara}">
                     <img src="./images/svg/heartStroke.svg" alt="Add to favorites" />
                 </button>
-                <button class="button listenButton">
-                    <img src="./images/svg/player.svg" alt="Listen to song" />
-                </button>
+                <a href="./pages/songs/song-${index+1}.html" class="link listenLink">
+					<button class="button listenButton listenButton${index}" onclick=""><img src="./images/svg/player.svg"
+						alt="Listen to song" />
+                    </button>
+				</a>
             </div>
         `;
 
