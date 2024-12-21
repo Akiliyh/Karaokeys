@@ -2,35 +2,57 @@ import { resultsManager } from "./resultsManager.js";
 import { init } from "./script.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-
     function highlightCurrentLyric(currentTime) {
         const lyricSpans = document.querySelectorAll(".lyrics span");
-    
+
         lyricSpans.forEach((span) => {
             const spanTime = parseInt(span.dataset.time, 10);
-    
+
             if (currentTime >= spanTime) {
                 lyricSpans.forEach(s => s.classList.remove("active"));
-    
+
                 span.classList.add("active");
-    
             }
         });
     }
 
     const initSong = async () => {
+        console.log("Starting initialization...");
 
-        await init();
+        // Forcer la récupération des données avant de continuer
+        try {
+            await init(); // Assurez-vous que les données sont prêtes
+            console.log("Data initialized successfully.");
+        } catch (error) {
+            console.error("Failed to initialize data:", error);
+            return; // Arrêter ici si la récupération des données échoue
+        }
+
         const artists = resultsManager.getResults();
+        console.log("Artists data:", artists);
 
-        console.log(artists)
+        if (!artists || artists.length === 0) {
+            console.error("No artist data found.");
+            return;
+        }
 
         const pageName = window.location.pathname.split("/").pop();
         const match = pageName.match(/song-(\d+)\.html/);
 
+        if (!match || !match[1]) {
+            console.error("No valid song index found in the URL.");
+            return;
+        }
+
         const index = parseInt(match[1]) - 1;
         const singleArtist = artists[index];
-        initTimeline(singleArtist.lyrics.syncedLyrics)
+
+        if (!singleArtist || !singleArtist.lyrics) {
+            console.error("Lyrics data missing for the selected song.");
+            return;
+        }
+
+        initTimeline(singleArtist.lyrics.syncedLyrics);
     };
 
     function initTimeline(songDataArray) {
@@ -53,10 +75,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
         playButton.addEventListener("click", () => {
             if (!timerInterval) {
-                const parsedTime = parseTimeInput(playbackInput.value);  // retrieve values from the input and set them to timer state
+                const parsedTime = parseTimeInput(playbackInput.value);
                 minute = parsedTime.minute;
                 second = parsedTime.second;
-                hundredth = 0; 
+                hundredth = 0;
 
                 timerInterval = startTimer(
                     songDataArray,
@@ -93,39 +115,35 @@ window.addEventListener("DOMContentLoaded", () => {
 
     function startTimer(songDataArray, timeline, time, playbackInput, onEndCallback) {
         let { minute, second, hundredth } = time;
-    
-        const startTime = performance.now(); // Record the starting time in milliseconds
+
+        const startTime = performance.now();
         const totalInitialHundredths = (minute * 60 * 100) + (second * 100) + hundredth;
-    
+
         return setInterval(() => {
             const elapsedTimeInHundredths = Math.floor((performance.now() - startTime) / 10) + totalInitialHundredths;
-    
+
             minute = Math.floor(elapsedTimeInHundredths / (60 * 100));
             second = Math.floor((elapsedTimeInHundredths % (60 * 100)) / 100);
             hundredth = elapsedTimeInHundredths % 100;
-    
-            playbackInput.value = formatTime(minute, second); // update timeline value and input
+
+            playbackInput.value = formatTime(minute, second);
             timeline.value = elapsedTimeInHundredths;
-    
+
             highlightCurrentLyric(elapsedTimeInHundredths);
-    
-            if (elapsedTimeInHundredths >= songDataArray.duration * 100) {   // stop when song ends
+
+            if (elapsedTimeInHundredths >= songDataArray.duration * 100) {
                 clearInterval(timerInterval);
                 console.log("Song ended.");
                 if (onEndCallback) onEndCallback();
                 return;
             }
-    
-            // console.log(`Minute: ${returnData(minute)}, Second: ${returnData(second)}, Hundredth: ${returnData(hundredth)}`);
-        }, 10); // every 10ms
+        }, 10);
     }
-    
 
     function setSecondsToMinutes(totalSeconds) {
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds % 60;
 
-        // Format the duration as MM:SS
         const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
         return formattedTime;
     }
