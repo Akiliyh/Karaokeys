@@ -1,4 +1,5 @@
 import { resultsManager } from "./resultsManager.js";
+import { init } from "./script.js";
 
 window.addEventListener("DOMContentLoaded", () => {
 
@@ -17,13 +18,15 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const init = async () => {
+    const initSong = async () => {
+
+        await init();
         const artists = resultsManager.getResults();
 
         console.log(artists)
 
-        const pageName = window.location.pathname.split("/").pop(); // Get the current page name
-        const match = pageName.match(/song-(\d+)\.html/); // Match 'song-<number>.html'
+        const pageName = window.location.pathname.split("/").pop();
+        const match = pageName.match(/song-(\d+)\.html/);
 
         const index = parseInt(match[1]) - 1;
         const singleArtist = artists[index];
@@ -136,5 +139,5 @@ window.addEventListener("DOMContentLoaded", () => {
         return { minute: isNaN(minute) ? 0 : minute, second: isNaN(second) ? 0 : second };
     }
 
-    init();
+    initSong();
 });
